@@ -8,13 +8,14 @@ const mongoose = require('mongoose');
 //routes
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth');
-
+const categoryRoutes = require('./routes/category')
+const productRoutes = require('./routes/product')
 
 //environment variable 
 env.config();
 //use middleware
 //if we won't use body-parser library => app.use(express.json());
-app.use(bodyParser());
+app.use(express.json());
 
 
 //mongoDb Connection String
@@ -48,6 +49,8 @@ app.post('/data',(req,res,next) =>{
 
 app.use('/api',authRoutes); // to use the authentacation routes
 app.use('/api',adminRoutes); // to use admin routes
+app.use('/api',categoryRoutes); // to use category routes
+app.use('/api',productRoutes); // to use category routes
 
 
 app.listen(process.env.PORT,() => {
