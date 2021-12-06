@@ -5,7 +5,7 @@ const express = require('express');
 const multer = require('multer'); /* Package for file uploading */
 const shortid = require('shortid');
 const Product = require('../models/product');
-const { createProduct , getProducts , getProductById } = require('../controller/product')
+const { createProduct , getProducts , getProductById , getProductByName} = require('../controller/product')
 
 const router = express.Router();
 const path = require('path');
@@ -22,16 +22,16 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage })
 
-/*=================== Create New Category Api  ==================*/
+/*=================== Create New Product Api  ==================*/
 router.post('/product/create', requireSignin , adminMiddleware ,upload.array('productPicture'),createProduct);
-/*=================== Get Categories Api  ==================*/
-//router.get("/product/getcategory", getCategories);
-/*=================== Delete Category Api  ==================*/
 
 /*=================== Get Products Api  ==================*/
 router.get('/product/getproducts',getProducts)
 
 /*=================== Get Single Product by Id Api  ==================*/
 router.get('/product/getproduct/:product_id',getProductById)
+
+/*=================== Get Single Product by Name Api  ==================*/
+router.get('/product/getproduct/search/:product_name',getProductByName)
 
 module.exports = router;
