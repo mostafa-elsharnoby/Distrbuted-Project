@@ -16,7 +16,7 @@ function ProductScreen(props) {
         <div>
             <div className="row">
                 <div className="col-2">
-                    <img className="large" src={Product.image} alt={product.name}></img>
+                    <img className="large" src={Product.productPictures} alt={product.name}></img>
                 </div>
                 <div className="col-1">
                     <ul>
@@ -25,11 +25,11 @@ function ProductScreen(props) {
                                 {product.name}
                             </h1>
                         </li>
-                        <li>
+                        {/* <li>
                             <Rating Rating={product.rating} numReviews={product.numReviews}>
 
                             </Rating>
-                        </li>
+                        </li> */}
                         <li>
                             Price:${product.price}
                         </li>
@@ -52,8 +52,8 @@ function ProductScreen(props) {
                                 <div className="row">
                                     <div>Status</div>
                                     <div>
-                                        {product.countInStock > 0 ? <span className="success">In Stock</span> :
-                                            <span className="danger">Out Stock</span>}
+                                        {product.quantity > 0 ? <span className="success">In Stock</span> :
+                                            <span className="danger ">Out of Stock</span>}
                                     </div>
                                 </div>
                             </li>
