@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
+const cartRoutes = require('./routes/cart')
 
 //environment variable 
 env.config();
@@ -50,7 +51,8 @@ app.post('/data',(req,res,next) =>{
 app.use('/api',authRoutes); // to use the authentacation routes
 app.use('/api',adminRoutes); // to use admin routes
 app.use('/api',categoryRoutes); // to use category routes
-app.use('/api',productRoutes); // to use category routes
+app.use('/api',productRoutes); // to use product routes
+app.use('/api',cartRoutes); // to use cart routes
 
 
 app.listen(process.env.PORT,() => {
