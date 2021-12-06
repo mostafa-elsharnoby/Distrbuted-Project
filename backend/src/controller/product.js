@@ -56,3 +56,16 @@ exports.getProductById = (req,res) => {
         }
     })
 }
+
+exports.getProductByName = (req,res) => {
+    const { product_name } = req.params
+    Product.find({name : {$regex : product_name , $options : "i"}}).exec((error,product) => {
+        if(error) return res.status(400).json({ error })
+        if(product.length>0){
+            res.status(200).json({product})
+        }
+        else{
+            res.status(200).json({ msg : "Product not found"})
+        }
+    })
+}
