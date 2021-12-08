@@ -40,7 +40,7 @@ function ProductScreen(props) {
                         : <div>
                             <div className="row">
                                 <div className="col-2">
-                                    <img className="large" src={`/public/${product["product"].productPictures[0]}`} alt={product["product"].name}></img>
+                                    <img className="large" src={`/public/${product["product"].productPictures[0]["img"]}`} alt={product["product"].name}></img>
                                 </div>
                                 <div className="col-1">
                                     <ul>
