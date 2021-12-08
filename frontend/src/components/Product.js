@@ -1,18 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Rating from './Rating';
 export default function Product(props) {
     const { product } = props;
     console.log(product.productPictures[0]["img"])
     return (
         <div key={product._id} className="card">
-            <a href={`/product/${product._id}`}>
-                <img className="medium" src={`https://localhost:2000/public/${product.productPictures[0]["img"]}`} alt="product" />
-                
-            </a>
+            <Link to={`/product/${product._id}`}>
+                <img className="medium" src={`/public/${product.productPictures[0]["img"]}`} alt="product" />
+            </Link>
             <div className="card-body">
-                <a href={`/product/${product._id}`}>
+                <Link to={`/product/${product._id}`}>
                     <h2>{product.name}</h2>
-                </a>
+                </Link>
                 {/* <Rating rating={product.rating} numReviews={product.numReviews}>
 
                 </Rating> */}

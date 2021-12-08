@@ -6,24 +6,32 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import SigninScreen from "./screens/SigninScreen";
+import CartScreen from "./screens/CartScreen";
 function App() {
   let { id } = useParams();
-
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin)
   const { userInfo } = userSignin
   const dispatch = useDispatch()
   const signoutHandler = () => {
     dispatch(signout())
   }
+
   return (
     <BrowserRouter>
       <div className="grid-container">
         <header className="row">
           <div>
-            <a className="brand" href="index.html">amazona</a>
+            <Link className="brand" to="/">amazona</Link>
           </div>
           <div>
-            <a href="cart.html">Cart</a>
+          <Link to="/cart">
+              Cart
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+            </Link>
             {
               userInfo ? (
                 <div className="dropdown">
@@ -41,6 +49,7 @@ function App() {
         </header>
         <main>
           <Routes>
+            <Route path="/cart/:id" element={<CartScreen />}></Route>
             <Route path="/product/:id" element={<ProductScreen />}></Route>
             <Route path="/signin" element={<SigninScreen />}></Route>
             <Route path="/register" element={<RegisterScreen />}></Route>
@@ -55,4 +64,3 @@ function App() {
 }
 
 export default App;
-
