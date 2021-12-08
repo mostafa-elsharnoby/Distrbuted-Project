@@ -1,9 +1,10 @@
 
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 function App() {
-  let { id } = useParams();
+
   return (
     <BrowserRouter>
       <div className="grid-container">
@@ -18,6 +19,7 @@ function App() {
         </header>
         <main>
           <Routes>
+            <Route path="/cart/:id" element={<CartScreen />}></Route>
             <Route path="/product/:id" element={<ProductScreen />}></Route>
             <Route path="/" element={<HomeScreen />} ></Route>
           </Routes>
