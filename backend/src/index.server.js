@@ -4,6 +4,7 @@ const app = express();
 const env = require('dotenv');  //env vars
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 //routes
 const authRoutes = require('./routes/auth');
@@ -15,9 +16,6 @@ const cartRoutes = require('./routes/cart')
 //environment variable 
 env.config();
 //use middleware
-//if we won't use body-parser library => app.use(express.json());
-app.use(express.json());
-
 
 //mongoDb Connection String
 /*
@@ -48,12 +46,14 @@ app.post('/data',(req,res,next) =>{
 });
 // ========= Testing APIs ============= //
 
+//if we won't use body-parser library => app.use(express.json());
+app.use(express.json());
+app.use('/public', express.static(path.join(__dirname, 'uploads')));
 app.use('/api',authRoutes); // to use the authentacation routes
 app.use('/api',adminRoutes); // to use admin routes
 app.use('/api',categoryRoutes); // to use category routes
 app.use('/api',productRoutes); // to use product routes
 app.use('/api',cartRoutes); // to use cart routes
-
 
 app.listen(process.env.PORT,() => {
     console.log(`Server is running on port ${process.env.PORT}`);

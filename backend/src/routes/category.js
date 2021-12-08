@@ -20,11 +20,11 @@ const {
 const router = express.Router();
 const shortid = require("shortid");
 const path = require("path");
-//const multer = require("multer");
+const multer = require("multer");
 const category = require("../models/category");
 const { addCAtegory, getCategories } = require("../controller/category");
 const { adminMiddleware,requireSignin } = require("../common-middlewre");
-/*
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(path.dirname(__dirname), "uploads"));
@@ -35,10 +35,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-*/
+
 
 /*=================== Create New Category Api  ==================*/
-router.post('/category/create', requireSignin , adminMiddleware ,addCAtegory);
+router.post('/category/create', requireSignin , adminMiddleware, upload.single('categoryImage') ,addCAtegory);
 
 
 /*
