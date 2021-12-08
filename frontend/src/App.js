@@ -26,7 +26,7 @@ function App() {
             <Link className="brand" to="/">amazona</Link>
           </div>
           <div>
-          <Link to="/cart">
+            <Link to="/cart">
               Cart
               {cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
@@ -40,16 +40,17 @@ function App() {
                     <Link to="#" onClick={signoutHandler}>Sign Out</Link>
                   </ul>
                 </div>
-              ) : 
-              (
-                <Link to="/signin">Sign In</Link>
-              )
+              ) :
+                (
+                  <Link to="/signin">Sign In</Link>
+                )
             }
           </div>
         </header>
         <main>
           <Routes>
             <Route path="/cart/:id" element={<CartScreen />}></Route>
+            {<Route path="/cart" element={<CartScreen />}></Route>}
             <Route path="/product/:id" element={<ProductScreen />}></Route>
             <Route path="/signin" element={<SigninScreen />}></Route>
             <Route path="/register" element={<RegisterScreen />}></Route>
