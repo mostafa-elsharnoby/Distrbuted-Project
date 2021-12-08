@@ -1,6 +1,5 @@
 //const { addCAtegory, getCategories } = require("../controller/category");
 const { adminMiddleware,requireSignin } = require("../common-middlewre");
-const { createProduct } = require("../controller/product");
 const express = require('express');
 const multer = require('multer'); /* Package for file uploading */
 const Product = require('../models/product');
