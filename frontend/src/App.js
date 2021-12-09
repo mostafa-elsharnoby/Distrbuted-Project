@@ -7,6 +7,8 @@ import ProductScreen from "./screens/ProductScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import SigninScreen from "./screens/SigninScreen";
 import CartScreen from "./screens/CartScreen";
+import ShippingAddressScreen from "./screens/ShippingAddressScreen";
+import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 function App() {
   let { id } = useParams();
   const cart = useSelector((state) => state.cart);
@@ -54,6 +56,8 @@ function App() {
             <Route path="/product/:id" element={<ProductScreen />}></Route>
             <Route path="/signin" element={<SigninScreen />}></Route>
             <Route path="/register" element={<RegisterScreen />}></Route>
+            <Route path="/shipping" element={<ShippingAddressScreen />} ></Route>
+            <Route path="/payment" element={<PaymentMethodScreen />} ></Route>
             <Route path="/" element={<HomeScreen />} ></Route>
           </Routes>
         </main>
