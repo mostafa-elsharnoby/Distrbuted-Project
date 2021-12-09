@@ -12,7 +12,10 @@ const adminRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
+
+/*MOSTAFA HUSSIEN AHMED ALI */
 const orderRouter = require('./routes/orderRouter')
+
 //environment variable 
 env.config();
 //use middleware
@@ -54,7 +57,9 @@ app.use('/api', adminRoutes); // to use admin routes
 app.use('/api', categoryRoutes); // to use category routes
 app.use('/api', productRoutes); // to use product routes
 app.use('/api', cartRoutes); // to use cart routes
-app.use('api/orders', orderRouter)
+
+/*MOSTAFA HUSSIEN AHMED ALI */
+app.use('api/orders', orderRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
