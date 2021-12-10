@@ -5,7 +5,7 @@ const env = require('dotenv');  //env vars
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-
+const cors = require('cors');
 //routes
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth');
@@ -47,6 +47,7 @@ app.post('/data',(req,res,next) =>{
 // ========= Testing APIs ============= //
 
 //if we won't use body-parser library => app.use(express.json());
+app.use(cors());
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'uploads')));
 app.use('/api',authRoutes); // to use the authentacation routes
