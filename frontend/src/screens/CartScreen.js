@@ -1,24 +1,3 @@
-// import React, { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useParams } from 'react-router';
-
-// import { addToCart } from '../actions/cartActions';
-// function CartScreen(props) {
-
-
-
-//     return (
-//         <div>
-//             <h1>CART SCREEN</h1>
-//             {<p>
-//                 ADD TO CART: PRODUCTID: {productId} QTY: {qty}
-//             </p>}
-//         </div>
-//     );
-// }
-
-// export default CartScreen;
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
@@ -50,7 +29,7 @@ export default function CartScreen(props) {
 
     let navigate = useNavigate();
     const checkoutHandler = () => {
-        navigate('/signin?redirect=/shipping');
+        navigate('/shipping');
     };
     return (
         <div className="row top">

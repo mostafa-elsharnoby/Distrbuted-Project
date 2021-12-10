@@ -12,6 +12,10 @@ const adminRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
+const orderRoutes = require('./routes/order')
+
+/*MOSTAFA HUSSIEN AHMED ALI */
+//const orderRouter = require('./routes/orderRouter')
 
 //environment variable 
 env.config();
@@ -24,22 +28,22 @@ mongodb+srv://root:<password>@cluster0.icqnq.mongodb.net/myFirstDatabase?retryWr
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.icqnq.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
     {
-        useNewUrlParser: true, 
+        useNewUrlParser: true,
         useUnifiedTopology: true
     }
-).then(()=> {
+).then(() => {
     console.log('Database is connected');
 });
 
 
 // ========= Testing APIs ============= //
-app.get('/',(req,res,next) =>{
+app.get('/', (req, res, next) => {
     res.status(200).json({
         message: 'Hello From Server'
     });
 });
 
-app.post('/data',(req,res,next) =>{
+app.post('/data', (req, res, next) => {
     res.status(200).json({
         message: req.body
     });
@@ -50,12 +54,16 @@ app.post('/data',(req,res,next) =>{
 app.use(cors());
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'uploads')));
-app.use('/api',authRoutes); // to use the authentacation routes
-app.use('/api',adminRoutes); // to use admin routes
-app.use('/api',categoryRoutes); // to use category routes
-app.use('/api',productRoutes); // to use product routes
-app.use('/api',cartRoutes); // to use cart routes
+app.use('/api', authRoutes); // to use the authentacation routes
+app.use('/api', adminRoutes); // to use admin routes
+app.use('/api', categoryRoutes); // to use category routes
+app.use('/api', productRoutes); // to use product routes
+app.use('/api', cartRoutes); // to use cart routes
+app.use('/api', orderRoutes); // to use order routes
 
-app.listen(process.env.PORT,() => {
+/*MOSTAFA HUSSIEN AHMED ALI */
+//app.use('api/orders', orderRouter);
+
+app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
