@@ -32,7 +32,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
         const {
             userSignin: { userInfo },
         } = getState();
-        const { data } = await Axios.post('/api/orders', order, {
+        const { data } = await Axios.post('/api/orders/create', order, {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`,
             },

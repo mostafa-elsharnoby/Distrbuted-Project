@@ -1,5 +1,5 @@
 import Axios from 'axios';
-//import { PayPalButton } from 'react-paypal-button-v2';
+import { PayPalButton } from 'react-paypal-button-v2';
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,57 +16,56 @@ export default function OrderScreen(props) {
     const params = useParams();
     const { id: orderId } = params;
 
-    //const [sdkReady, setSdkReady] = useState(false);
+    const [sdkReady, setSdkReady] = useState(false);
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
 
-    // const orderPay = useSelector((state) => state.orderPay);
-    // const {
-    //     loading: loadingPay,
-    //     error: errorPay,
-    //     success: successPay,
-    // } = orderPay;
-    // const orderDeliver = useSelector((state) => state.orderDeliver);
-    // const {
-    //     loading: loadingDeliver,
-    //     error: errorDeliver,
-    //     success: successDeliver,
-    // } = orderDeliver;
+    const orderPay = useSelector((state) => state.orderPay);
+    const {
+        loading: loadingPay,
+        error: errorPay,
+        success: successPay,
+    } = orderPay;
+    const orderDeliver = useSelector((state) => state.orderDeliver);
+    const {
+        loading: loadingDeliver,
+        error: errorDeliver,
+        success: successDeliver,
+    } = orderDeliver;
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     const addPayPalScript = async () => {
-    //         const { data } = await Axios.get('/api/config/paypal');
-    //         const script = document.createElement('script');
-    //         script.type = 'text/javascript';
-    //         script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-    //         script.async = true;
-    //         script.onload = () => {
-    //             setSdkReady(true);
-    //         };
-    //         document.body.appendChild(script);
-    //     };
-    //     if (
-    //         !order ||
-    //         successPay ||
-    //         successDeliver ||
-    //         (order && order._id !== orderId)
-    //     ) {
-    //         dispatch({ type: ORDER_PAY_RESET });
-    //         dispatch({ type: ORDER_DELIVER_RESET });
-    //         dispatch(detailsOrder(orderId));
-    //     } else {
-    //         if (!order.isPaid) {
-    //             if (!window.paypal) {
-    //                 addPayPalScript();
-    //             } else {
-    //                 setSdkReady(true);
-    //             }
-    //         }
-    //     }
-    // }, [dispatch, orderId, sdkReady, successPay, successDeliver, order]);
-
+    useEffect(() => {
+        const addPayPalScript = async () => {
+            const { data } = await Axios.get('/api/config/paypal');
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+            script.async = true;
+            script.onload = () => {
+                setSdkReady(true);
+            };
+            document.body.appendChild(script);
+        };
+        if (
+            !order ||
+            successPay ||
+            successDeliver ||
+            (order && order._id !== orderId)
+        ) {
+            dispatch({ type: ORDER_PAY_RESET });
+            dispatch({ type: ORDER_DELIVER_RESET });
+            dispatch(detailsOrder(orderId));
+        } else {
+            if (!order.isPaid) {
+                if (!window.paypal) {
+                    addPayPalScript();
+                } else {
+                    setSdkReady(true);
+                }
+            }
+        }
+    }, [dispatch, orderId, sdkReady, successPay, successDeliver, order]);
     const successPaymentHandler = (paymentResult) => {
         dispatch(payOrder(order, paymentResult));
     };
@@ -185,7 +184,7 @@ export default function OrderScreen(props) {
                             </li>
                             {!order.isPaid && (
                                 <li>
-                                    {/*!sdkReady ? (
+                                    {!sdkReady ? (
                                         <LoadingBox></LoadingBox>
                                     ) : (
                                         <>
@@ -199,7 +198,7 @@ export default function OrderScreen(props) {
                                                 onSuccess={successPaymentHandler}
                                             ></PayPalButton>
                                         </>
-                                            )*/}
+                                            )}
                                 </li>
                             )}
                             {/*userInfo.isAdmin && order.isPaid && !order.isDelivered && (
