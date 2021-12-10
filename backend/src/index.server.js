@@ -12,7 +12,7 @@ const adminRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
-const orderRoutes = require('./src/routes/order')
+const orderRoutes = require('./routes/order')
 
 /*MOSTAFA HUSSIEN AHMED ALI */
 //const orderRouter = require('./routes/orderRouter')

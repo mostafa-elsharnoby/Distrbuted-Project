@@ -1,6 +1,6 @@
 const Order = require('../models/orderModel.js');
 
-exports.createOrder = (req,res) => {
+exports.createOrder = (req, res) => {
     if (req.body.orderItems.length === 0) {
         res.status(400).send({ message: 'Cart is empty' });
     } else {
@@ -15,13 +15,13 @@ exports.createOrder = (req,res) => {
             totalPrice: req.body.totalPrice,
             user: req.user._id,
         });
-        order.save((error,data) => {
-            if(error){
+        order.save((error, data) => {
+            if (error) {
                 return res.status(400).json({
-                    message:'something went wrong'
+                    message: 'something went wrong'
                 });
             }
-            if(data){
+            if (data) {
                 return res.status(201).json({
                     message: 'Order created successfully',
                     data
@@ -31,21 +31,21 @@ exports.createOrder = (req,res) => {
     }
 }
 
-exports.getOrderById = (req,res) => {
+exports.getOrderById = (req, res) => {
     const { order_id } = req.params
-    Order.findById(order_id , (error,order) => {
-        if(error) return res.status(400).json({ error })
-        if(order){
-            res.status(200).json({order})
+    Order.findById(order_id, (error, order) => {
+        if (error) return res.status(400).json({ error })
+        if (order) {
+            res.status(200).json({ order })
         }
     })
 }
 
-exports.getOrders = (req,res) => {
-    Order.find({}).exec((error, orders) => {
+exports.getOrders = (req, res) => {
+    Order.find({ user: req.user._id }).exec((error, orders) => {
         if (error) return res.status(400).json({ error });
         if (orders) {
-          res.status(200).json({orders});
+            res.status(200).json({ orders });
         }
-      });
+    });
 }
