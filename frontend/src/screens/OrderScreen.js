@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions';
+import { detailsOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import {
@@ -19,21 +19,20 @@ export default function OrderScreen(props) {
     const [sdkReady, setSdkReady] = useState(false);
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
-    const userSignin = useSelector((state) => state.userSignin);
-    const { userInfo } = userSignin;
+    console.log("my order details >>> ", orderDetails)
 
-    const orderPay = useSelector((state) => state.orderPay);
+    /*const orderPay = useSelector((state) => state.orderPay);
     const {
-        loading: loadingPay,
-        error: errorPay,
-        success: successPay,
+       loadingPay,
+        errorPay,
+        successPay,
     } = orderPay;
     const orderDeliver = useSelector((state) => state.orderDeliver);
     const {
         loading: loadingDeliver,
         error: errorDeliver,
         success: successDeliver,
-    } = orderDeliver;
+    } = orderDeliver;*/
     const dispatch = useDispatch();
     useEffect(() => {
         const addPayPalScript = async () => {
@@ -47,7 +46,20 @@ export default function OrderScreen(props) {
             };
             document.body.appendChild(script);
         };
-        if (
+        if (!order) {
+            //dispatch({ type: ORDER_PAY_RESET });
+            //dispatch({ type: ORDER_DELIVER_RESET });
+            dispatch(detailsOrder(orderId));
+        } else {
+            if (!order.isPaid) {
+                if (!window.paypal) {
+                    addPayPalScript();
+                } else {
+                    setSdkReady(true);
+                }
+            }
+        }
+        /*if (
             !order ||
             successPay ||
             successDeliver ||
@@ -64,13 +76,13 @@ export default function OrderScreen(props) {
                     setSdkReady(true);
                 }
             }
-        }
-    }, [dispatch, orderId, sdkReady, successPay, successDeliver, order]);
+        }*/
+    }, [dispatch, orderId, sdkReady, order]);
     const successPaymentHandler = (paymentResult) => {
-        dispatch(payOrder(order, paymentResult));
+        //dispatch(payOrder(order, paymentResult));
     };
     const deliverHandler = () => {
-        dispatch(deliverOrder(order._id));
+        //dispatch(deliverOrder(order._id));
     };
 
     return loading ? (
@@ -85,7 +97,7 @@ export default function OrderScreen(props) {
                     <ul>
                         <li>
                             <div className="card card-body">
-                                <h2>Shippring</h2>
+                                <h2>Shipping</h2>
                                 <p>
                                     <strong>Name:</strong> {order.shippingAddress.fullName} <br />
                                     <strong>Address: </strong> {order.shippingAddress.address},
@@ -126,7 +138,7 @@ export default function OrderScreen(props) {
                                             <div className="row">
                                                 <div>
                                                     <img
-                                                        src={item.image}
+                                                        src={`/public/${item.image}`}
                                                         alt={item.name}
                                                         className="small"
                                                     ></img>
@@ -188,10 +200,10 @@ export default function OrderScreen(props) {
                                         <LoadingBox></LoadingBox>
                                     ) : (
                                         <>
-                                            {errorPay && (
+                                            {/*errorPay && (
                                                 <MessageBox variant="danger">{errorPay}</MessageBox>
-                                            )}
-                                            {loadingPay && <LoadingBox></LoadingBox>}
+                                            )*/}
+                                            {/*loadingPay && <LoadingBox></LoadingBox>*/}
 
                                             <PayPalButton
                                                 amount={order.totalPrice}

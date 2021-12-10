@@ -11,6 +11,7 @@ import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
+import { ProfileScreen } from "./screens/ProfileScreen";
 function App() {
   let { id } = useParams();
   const cart = useSelector((state) => state.cart);
@@ -27,7 +28,7 @@ function App() {
       <div className="grid-container">
         <header className="row">
           <div>
-            <Link className="brand" to="/">amazona</Link>
+            <Link className="brand" to="/">AIN SHAMS SHOP</Link>
           </div>
           <div>
             <Link to="/cart">
@@ -41,7 +42,10 @@ function App() {
                 <div className="dropdown">
                   <Link to="#">{userInfo["user"]["firstName"]} <i className="fa fa-caret-down"></i> {' '}</Link>
                   <ul className="dropdown-content">
-                    <Link to="#" onClick={signoutHandler}>Sign Out</Link>
+                    <li>
+                      <Link to="/profile">User Profile</Link>
+                    </li>
+                    <Link to="/" onClick={signoutHandler}>Sign Out</Link>
                   </ul>
                 </div>
               ) :
@@ -62,6 +66,7 @@ function App() {
             <Route path="/payment" element={<PaymentMethodScreen />} ></Route>
             <Route path="/placeorder" element={<PlaceOrderScreen />} ></Route>
             <Route path="/order/:id" element={<OrderScreen />}></Route>
+            <Route path="/profile" element={<ProfileScreen />}></Route>
             <Route path="/" element={<HomeScreen />} ></Route>
           </Routes>
         </main>

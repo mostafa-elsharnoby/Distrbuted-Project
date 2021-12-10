@@ -12,7 +12,8 @@ const adminRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
-const orderRoutes = require('./src/routes/order')
+const orderRoutes = require('./routes/order')
+const userRoutes = require('./src/routes/user')
 
 /*MOSTAFA HUSSIEN AHMED ALI */
 //const orderRouter = require('./routes/orderRouter')
@@ -59,6 +60,8 @@ app.use('/api', categoryRoutes); // to use category routes
 app.use('/api', productRoutes); // to use product routes
 app.use('/api', cartRoutes); // to use cart routes
 app.use('/api', orderRoutes); // to use order routes
+app.use('/api', userRoutes); // to use user routes
+
 
 /*MOSTAFA HUSSIEN AHMED ALI */
 //app.use('api/orders', orderRouter);
